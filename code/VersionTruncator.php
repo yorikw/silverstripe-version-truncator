@@ -14,7 +14,6 @@
 
 class VersionTruncator extends SiteTreeExtension
 {
-
     private static $version_limit = 10;
 
     private static $draft_limit = 5;
@@ -42,7 +41,7 @@ class VersionTruncator extends SiteTreeExtension
         if (is_numeric($version_limit)) {
             $search = DB::query('SELECT "RecordID", "Version" FROM "SiteTree_versions"
 				 WHERE "RecordID" = ' . $ID  . ' AND "ClassName" = \'' . $className . '\'
-				 AND "WasPublished" > 0
+				 AND "WasPublished" = 1
 				 ORDER BY "LastEdited" DESC LIMIT ' . $version_limit .', 200');
             foreach ($search as $row) {
                 array_push($versionsToDelete, array('RecordID' => $row['RecordID'], 'Version' => $row['Version']));
